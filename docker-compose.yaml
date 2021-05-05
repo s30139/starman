@@ -1,0 +1,17 @@
+version: "2.2"
+services:
+
+  starman:
+    container_name: starman
+    image: perl:5.32-slim
+    #cpus: 0.50
+    ports:
+      - "88:88/tcp"
+    volumes:
+      - ./:/starman/
+    command: >
+        bash -c "apt-get update && apt-get -y install curl gcc vim build-essential cpanminus &&
+        cpanm Starman JSON::XS &&
+        while true; do sleep 30; done; "
+    #entrypoint: ["/bin/sh", "-c", "while true; do sleep 30; done;"]
+    #&& starman --port 88 --workers 1 app.psgi"
